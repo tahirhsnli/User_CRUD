@@ -7,7 +7,6 @@ from database import get_db, init_db
 
 app = FastAPI()
 
-# Veritabanını başlatıyoruz
 @app.on_event("startup")
 async def startup():
     await init_db()
@@ -20,10 +19,6 @@ async def read_users(db: Session = Depends(get_db)):
 
 @app.post("/users/post", response_model=UserCreate)
 async def create_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
-    #db_user = db.query(User).filter(User.email == user.email).first()
-    #if db_user:
-     #   raise HTTPException(status_code=400, detail="Email already registered")
-    
     new_user = User(name=user.name, email=user.email)
     db.add(new_user)
     await db.commit()
@@ -32,9 +27,6 @@ async def create_user(user: UserCreate, db: AsyncSession = Depends(get_db)):
 
 @app.put("/users/post/{id}" ,response_model=UserCreate)
 async def create_user(id: int,updated_user : UserCreate, db: AsyncSession = Depends(get_db)):
-    #db_user = db.query(User).filter(User.email == user.email).first()
-    #if db_user:
-     #   raise HTTPException(status_code=400, detail="Email already registered")
     result = await db.execute(select(User).where(User.id == id))
     user = result.scalars().first()
     user.name = updated_user.name
@@ -45,15 +37,12 @@ async def create_user(id: int,updated_user : UserCreate, db: AsyncSession = Depe
 
 @app.delete('/user/delete/{id}')
 async def delete_user(id: int, db: AsyncSession = Depends(get_db)):
-    # Kullanıcıyı sorgula
     result = await db.execute(select(User).where(User.id == id))
     user = result.scalars().first()
 
-    # Kullanıcı bulunamazsa hata döndür
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    # Kullanıcıyı sil
     await db.delete(user)
     await db.commit()
 
