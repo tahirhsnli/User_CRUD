@@ -1,8 +1,14 @@
 {
     "builds" : [
         {
-            "src":"DENEME1/main.py",
+            "src":"Deneme1/main.py",
             "use":"@vercel/python"
+        }
+    ],
+    "routes" : [
+        {
+            "src":"/(.*)",
+            "dest":"Deneme1/main.py"
         }
     ]
 }
