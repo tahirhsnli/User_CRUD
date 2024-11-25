@@ -10,23 +10,74 @@ engine = create_engine(settings.DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-class User(Base):
-    __tablename__ = "users"
-    id = Column(Integer, primary_key=True, index=True)
+class ApplySource(Base):
+    __tablename__ = "applysources"
+    applysource_id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
-    email = Column(String, unique=True, index=True)
 
-class UserCreate(BaseModel):
+class ApplySourceCreate(BaseModel):
     name: str
-    email: str
 
     class Config:
         orm_mode = True
 
-class UserResponse(BaseModel):
-    id: int
+class ApplySourceResponse(BaseModel):
+    applysource_id: int
     name: str
-    email: str
+
+    class Config:
+        orm_mode = True
+
+class City(Base):
+    __tablename__ = "cities"
+    city_id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+
+class CityCreate(BaseModel):
+    name: str
+
+    class Config:
+        orm_mode = True
+
+class CityResponse(BaseModel):
+    city_id: int
+    name: str
+
+    class Config:
+        orm_mode = True
+
+class Company(Base):
+    __tablename__ = "companies"
+    company_id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+
+class CompanyCreate(BaseModel):
+    name: str
+
+    class Config:
+        orm_mode = True
+
+class CompanyResponse(BaseModel):
+    company_id: int
+    name: str
+
+    class Config:
+        orm_mode = True
+
+class Position(Base):
+    __tablename__ = "positions"
+    position_id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+
+class PositionCreate(BaseModel):
+    name: str
+
+    class Config:
+        orm_mode = True
+
+class PositionResponse(BaseModel):
+    position_id: int
+    name: str
 
     class Config:
         orm_mode = True
