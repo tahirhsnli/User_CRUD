@@ -2,7 +2,8 @@ from fastapi import FastAPI, Depends, HTTPException,APIRouter
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from sqlalchemy.ext.asyncio import AsyncSession
-from models import City,CityCreate,CityResponse
+from models import City
+from viewmodels.CityViewModels import CityCreate,CityResponse
 from database import get_db
 
 router = APIRouter(

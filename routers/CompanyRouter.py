@@ -2,7 +2,8 @@ from fastapi import FastAPI, Depends, HTTPException,APIRouter
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from sqlalchemy.ext.asyncio import AsyncSession
-from models import Company,CompanyCreate,CompanyResponse
+from models import Company
+from viewmodels.CompanyViewModels import CompanyCreate,CompanyResponse
 from database import get_db
 
 router = APIRouter(
